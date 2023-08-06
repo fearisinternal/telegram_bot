@@ -19,7 +19,7 @@ def photo(message):
     fileID = message.photo[-1].file_id
     file_info = bot.get_file(fileID)
     downloaded_file = bot.download_file(file_info.file_path)
-    with open("img/"+str(message.chat.id)+".jpg", 'wb') as mess_photo:
+    with open(os.path.join("img",str(message.chat.id)+".jpg"), 'wb') as mess_photo:
         mess_photo.write(downloaded_file)
     bot.send_message(message.chat.id, 'Photo received, let\'s add text!', parse_mode='html')
 
@@ -28,13 +28,14 @@ def answer(message):
     # markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     # start = types.KeyboardButton("/start")
     # help = types.KeyboardButton("/help")
-    # markup.add(start, help)        
-    if (os.path.exists("img/"+str(message.chat.id)+".jpg")):
-        add_text("img/"+str(message.chat.id), message.text)
-        ans_photo = open("img/"+str(message.chat.id)+"ans.jpg", 'rb')
+    # markup.add(start, help)    
+    image_path = os.path.join("img",str(message.chat.id)+".jpg") 
+    if (os.path.exists(image_path)):
+        add_text(os.path.join("img",str(message.chat.id)), message.text)
+        ans_photo = open(os.path.join("img",str(message.chat.id)+"ans.jpg"), 'rb')
         bot.send_photo(message.chat.id, ans_photo)
-        os.remove("img/"+str(message.chat.id)+".jpg")
-        os.remove("img/"+str(message.chat.id)+"ans.jpg")
+        os.remove(os.path.join("img",str(message.chat.id)+".jpg"))
+        os.remove(os.path.join("img",str(message.chat.id)+"ans.jpg"))
     else:
         bot.send_message(message.chat.id, 'Send me a picture', parse_mode='html')
 

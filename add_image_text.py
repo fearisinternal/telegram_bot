@@ -8,7 +8,7 @@ def add_text(filename, imagetext):
     else:
         fontsize = int(img.height*0.065)
 
-    font = ImageFont.truetype('font/Lobster 1.4 Regular.ttf', fontsize)
+    font = ImageFont.truetype('font/Lobster/Lobster-Regular.ttf', fontsize)
     x = img.width*0.5
     y = img.height*0.95
     last = len(imagetext)
